@@ -204,5 +204,6 @@ async function loadData(url) {
     drawTemperature(geojson);
     drawSnowheight(geojson);
     drawWind(geojson);
+    drawHumidity(geojson);
 }
 loadData("https://static.avalanche.report/weather_stations/stations.geojson");
