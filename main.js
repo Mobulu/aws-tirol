@@ -71,9 +71,13 @@ let getColor = function(value, ramp) {
 let drawStations = function(geojson) {
     L.geoJSON(geojson, {
         pointToLayer: function(geoJsonPoint, latlng) {
-            let popup = `
-                ${geoJsonPoint.properties.name} (${geoJsonPoint.geometry.coordinates[2]}m)
-            `;
+
+//Workload 8
+            let temperatur = ``
+            if(typeof(geoJsonPoint.properties.LT) == "number")
+            {
+                temperatur = `Temperatur: ${geoJsonPoint.properties.LT}°C`
+            }
             return L.marker(latlng, {
                 icon: L.icon({
                     iconUrl: "icons/wifi.png",
