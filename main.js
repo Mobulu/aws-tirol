@@ -56,7 +56,7 @@ L.control.fullscreen().addTo(map);
 overlays.wind.addTo(map);
 
 // Farben nach Wert und Schwellen ermitteln
-let getColor = function(value, ramp) {
+let getColor = function (value, ramp) {
     //console.log(value,ramp);
     for (let rule of ramp) {
         //console.log(rule)
@@ -68,44 +68,39 @@ let getColor = function(value, ramp) {
 //console.log(getColor(-40, COLORS.temperature));
 
 // Wetterstationen mit Icons und Popups
-let drawStations = function(geojson) {
+let drawStations = function (geojson) {
     L.geoJSON(geojson, {
-        pointToLayer: function(geoJsonPoint, latlng) {
+        pointToLayer: function (geoJsonPoint, latlng) {
 
-//Workload 8
+            //Workload 8
 
             // Temperatur-Abfrage
             let temperatur = ``
-            if(geoJsonPoint.properties.LT > -50 && geoJsonPoint.properties.LT < 50)
-            {
+            if (geoJsonPoint.properties.LT > -50 && geoJsonPoint.properties.LT < 50) {
                 temperatur = `Lufttemperatur: ${geoJsonPoint.properties.LT.toFixed(1)}(°C)<br>`
             }
 
             // Schneehöhe-Abfrage
             let snowheight = ``
-            if(geoJsonPoint.properties.HS > 0 && geoJsonPoint.properties.HS < 15000)
-            {
+            if (geoJsonPoint.properties.HS > 0 && geoJsonPoint.properties.HS < 15000) {
                 snowheight = `Schneehöhe: ${geoJsonPoint.properties.HS.toFixed(1)}(cm)<br>`
             }
 
             // Windgeschwindigkeits-Abfrage
             let wind = ``
-            if(geoJsonPoint.properties.WG > 0 && geoJsonPoint.properties.WG < 300)
-            {
+            if (geoJsonPoint.properties.WG > 0 && geoJsonPoint.properties.WG < 300) {
                 wind = `Windgeschwindigkeit: ${(geoJsonPoint.properties.WG * 3.6).toFixed(1)}(km/h)<br>`
             }
 
             // Windrichtungs-Abfrage
             let winddir = ``
-            if(geoJsonPoint.properties.WR >= 0 && geoJsonPoint.properties.WR <= 360)
-            {
+            if (geoJsonPoint.properties.WR >= 0 && geoJsonPoint.properties.WR <= 360) {
                 winddir = `Windrichtung: ${geoJsonPoint.properties.WR.toFixed(1)}(°)<br>`
             }
 
             // Relative Luftfeuchtigkeits-Abfrage
             let humidity = ``
-            if(geoJsonPoint.properties.RH >= 0 && geoJsonPoint.properties.RH <= 100)
-            {
+            if (geoJsonPoint.properties.RH >= 0 && geoJsonPoint.properties.RH <= 100) {
                 humidity = `Relative Luftfeuchtigkeit: ${geoJsonPoint.properties.RH.toFixed(1)}(%)<br>`
             }
 
@@ -131,14 +126,14 @@ let drawStations = function(geojson) {
 }
 
 // Temperatur
-let drawTemperature = function(geojson) {
+let drawTemperature = function (geojson) {
     L.geoJSON(geojson, {
-        filter: function(geoJsonPoint) {
+        filter: function (geoJsonPoint) {
             if (geoJsonPoint.properties.LT > -50 && geoJsonPoint.properties.LT < 50) {
                 return true;
             }
         },
-        pointToLayer: function(geoJsonPoint, latlng) {
+        pointToLayer: function (geoJsonPoint, latlng) {
             let popup = `
                 ${geoJsonPoint.properties.name} (${geoJsonPoint.geometry.coordinates[2]}m)
             `;
@@ -158,14 +153,14 @@ let drawTemperature = function(geojson) {
 }
 
 // Schneehöhen
-let drawSnowheight = function(geojson) {
+let drawSnowheight = function (geojson) {
     L.geoJSON(geojson, {
-        filter: function(geoJsonPoint) {
+        filter: function (geoJsonPoint) {
             if (geoJsonPoint.properties.HS > 0 && geoJsonPoint.properties.HS < 15000) {
                 return true;
             }
         },
-        pointToLayer: function(geoJsonPoint, latlng) {
+        pointToLayer: function (geoJsonPoint, latlng) {
             let popup = `
                 ${geoJsonPoint.properties.name} (${geoJsonPoint.geometry.coordinates[2]}m)
             `;
@@ -185,14 +180,14 @@ let drawSnowheight = function(geojson) {
 }
 
 // Wind
-let drawWind = function(geojson) {
+let drawWind = function (geojson) {
     L.geoJSON(geojson, {
-        filter: function(geoJsonPoint) {
-            if (geoJsonPoint.properties.WG > 0 && geoJsonPoint.properties.WG < 300 && geoJsonPoint.properties.WR >=0 && geoJsonPoint.properties.WR <=360) {
+        filter: function (geoJsonPoint) {
+            if (geoJsonPoint.properties.WG > 0 && geoJsonPoint.properties.WG < 300 && geoJsonPoint.properties.WR >= 0 && geoJsonPoint.properties.WR <= 360) {
                 return true;
             }
         },
-        pointToLayer: function(geoJsonPoint, latlng) {
+        pointToLayer: function (geoJsonPoint, latlng) {
             let popup = `
                 ${geoJsonPoint.properties.name} (${geoJsonPoint.geometry.coordinates[2]}m)
             `;
