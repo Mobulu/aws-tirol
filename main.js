@@ -55,12 +55,8 @@ L.control.fullscreen().addTo(map);
 // Wetterstationslayer beim Laden anzeigen
 overlays.stations.addTo(map);
 
-// Wetterstationen
-async function loadData(url) {
-    let response = await fetch(url);
-    let geojson = await response.json();
-
-    // Wetterstationen mit Icons und Popups implementieren
+// Wetterstationen mit Icons und Popups
+let drawStations = function(geojson) {
     L.geoJSON(geojson, {
         pointToLayer: function(geoJsonPoint, latlng) {
             let popup = `
@@ -76,5 +72,12 @@ async function loadData(url) {
         }
     }).addTo(overlays.stations);
 
+}
+// Wetterstationen
+async function loadData(url) {
+    let response = await fetch(url);
+    let geojson = await response.json();
+
+    drawStations(geojson);
 }
 loadData("https://static.avalanche.report/weather_stations/stations.geojson");
