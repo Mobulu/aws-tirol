@@ -78,14 +78,14 @@ let drawStations = function(geojson) {
             let temperatur = ``
             if(geoJsonPoint.properties.LT > -50 && geoJsonPoint.properties.LT < 50)
             {
-                temperatur = `Lufttemperatur: ${geoJsonPoint.properties.LT}(°C)<br>`
+                temperatur = `Lufttemperatur: ${geoJsonPoint.properties.LT.toFixed(1)}(°C)<br>`
             }
 
             // Schneehöhe-Abfrage
             let snowheight = ``
             if(geoJsonPoint.properties.HS > 0 && geoJsonPoint.properties.HS < 15000)
             {
-                snowheight = `Schneehöhe: ${geoJsonPoint.properties.HS}(cm)<br>`
+                snowheight = `Schneehöhe: ${geoJsonPoint.properties.HS.toFixed(1)}(cm)<br>`
             }
 
             // Windgeschwindigkeits-Abfrage
