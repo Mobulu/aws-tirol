@@ -74,18 +74,25 @@ let drawStations = function(geojson) {
 
 //Workload 8
 
-            //Temperatur-Abfrage
+            // Temperatur-Abfrage
             let temperatur = ``
-            if(typeof(geoJsonPoint.properties.LT) == "number")
+            if(geoJsonPoint.properties.LT > -50 && geoJsonPoint.properties.LT < 50)
             {
                 temperatur = `Lufttemperatur: ${geoJsonPoint.properties.LT}(°C)<br>`
             }
 
             // Schneehöhe-Abfrage
             let snowheight = ``
-            if(typeof(geoJsonPoint.properties.HS) == "number")
+            if(geoJsonPoint.properties.HS > 0 && geoJsonPoint.properties.HS < 15000)
             {
                 snowheight = `Schneehöhe: ${geoJsonPoint.properties.HS}(cm)<br>`
+            }
+
+            // Windgeschwindigkeits-Abfrage
+            let wind = ``
+            if(geoJsonPoint.properties.WG > 0 && geoJsonPoint.properties.WG < 300)
+            {
+                wind = `Windgeschwindigkeit: ${geoJsonPoint.properties.WG / 3.6}(km/h)<br>`
             }
 
             let popup = `
@@ -93,6 +100,7 @@ let drawStations = function(geojson) {
                 (${geoJsonPoint.geometry.coordinates[2]}m)<br>
                 ${temperatur}
                 ${snowheight}
+                ${wind}
             `;
             return L.marker(latlng, {
                 icon: L.icon({
