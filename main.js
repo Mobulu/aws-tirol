@@ -78,6 +78,11 @@ let drawStations = function(geojson) {
             {
                 temperatur = `Temperatur: ${geoJsonPoint.properties.LT}°C`
             }
+            let popup = `
+                <strong>${geoJsonPoint.properties.name}</strong>
+                (${geoJsonPoint.geometry.coordinates[2]}m)<br>
+                ${temperatur}
+            `;
             return L.marker(latlng, {
                 icon: L.icon({
                     iconUrl: "icons/wifi.png",
