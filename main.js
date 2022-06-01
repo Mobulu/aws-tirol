@@ -73,15 +73,26 @@ let drawStations = function(geojson) {
         pointToLayer: function(geoJsonPoint, latlng) {
 
 //Workload 8
+
+            //Temperatur-Abfrage
             let temperatur = ``
             if(typeof(geoJsonPoint.properties.LT) == "number")
             {
-                temperatur = `Temperatur: ${geoJsonPoint.properties.LT}°C`
+                temperatur = `Lufttemperatur: ${geoJsonPoint.properties.LT}(°C)<br>`
             }
+
+            // Schneehöhe-Abfrage
+            let snowheight = ``
+            if(typeof(geoJsonPoint.properties.HS) == "number")
+            {
+                snowheight = `Schneehöhe: ${geoJsonPoint.properties.HS}(cm)<br>`
+            }
+
             let popup = `
                 <strong>${geoJsonPoint.properties.name}</strong>
                 (${geoJsonPoint.geometry.coordinates[2]}m)<br>
                 ${temperatur}
+                ${snowheight}
             `;
             return L.marker(latlng, {
                 icon: L.icon({
